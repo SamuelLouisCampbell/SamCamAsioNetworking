@@ -110,7 +110,7 @@ namespace netcommon
 					invalidClientExists = true;
 				}
 				if(invalidClientExists)
-					std::remove(deqConnections.begin(), deqConnections.end(), nullptr), deqConnections.end();
+					deqConnections.erase(std::remove(deqConnections.begin(), deqConnections.end(), nullptr), deqConnections.end());
 			}
 		}
 
@@ -171,6 +171,7 @@ namespace netcommon
 		uint32_t nIDCounter = 10000;
 
 	private:
+		bool isRunning = false;
 	};
 
 };

@@ -47,7 +47,7 @@ namespace netcommon
 			std::memcpy(msg.body.data() + i, &data, sizeof(DataType));
 
 			//recalculate message size for header
-			msg.header.size = msg.size();
+			msg.header.size = uint32_t(msg.size());
 
 			//return target message so it can be chained
 			return msg;
@@ -70,7 +70,7 @@ namespace netcommon
 			msg.body.resize(i);
 
 			//recalculate message size for header
-			msg.header.size = msg.size();
+			msg.header.size = uint32_t(msg.size());
 
 			//return target message so it can be chained
 			return msg;

@@ -33,7 +33,7 @@ namespace netcommon
 				//Generate a random number to send to the client
 				std::random_device rd;
 				std::mt19937 rng(rd());
-				std::uniform_int_distribution<int>dist (0, std::numeric_limits<int>::max()-1);
+				std::uniform_int_distribution<uint64_t>dist (0, std::numeric_limits<uint64_t>::max()-1);
 				m_nHandshakeOut = dist(rng);
 
 				//Pre calculate answer for client to respond with
@@ -198,6 +198,7 @@ namespace netcommon
 						}
 					});
 			}
+
 		}
 		void Disconnect()
 		{
@@ -210,13 +211,16 @@ namespace netcommon
 		}
 		void Send(const message<T>& msg)
 		{
-			asio::post(m_context, [this, msg]()
-				{
-					bool bWritingMessage = !m_qMessagesOut.empty();
-					m_qMessagesOut.push_back(msg);
-					if (!bWritingMessage)
-						WriteHeader();
-				});
+			if (IsConnected())
+			{
+				asio::post(m_context, [this, msg]()
+					{
+						bool bWritingMessage = !m_qMessagesOut.empty();
+						m_qMessagesOut.push_back(msg);
+						if (!bWritingMessage)
+							WriteHeader();
+					});
+			}
 		}
 		uint32_t GetUUID() const
 		{
@@ -226,12 +230,14 @@ namespace netcommon
 		//"Encrypt" Data
 		uint64_t Scramble(uint64_t nInput)
 		{
+			std::cout << "Input for validation: " << nInput << std::endl;
 			uint64_t out = nInput ^ 0xF00DBEEFC0DECAFE;
 			out = (out & 0xF0F0F0F0F0F0F0F0) >> 4 | (out & 0x0F0F0F0F0F0F0F0F) << 4;
+			std::cout << "Output for validation: " << out << std::endl;
 			return out ^ 0xC0DED00D23051988;
+			//std::cout << "Output for validation: " << nInput << std::endl;
 			//return nInput;
 		}
-
 		void WriteValidation()
 		{
 			asio::async_write(m_socket, asio::buffer(&m_nHandshakeOut, sizeof(uint64_t)),
@@ -257,10 +263,11 @@ namespace netcommon
 					{
 						if (m_nOwnerType == owner::server)
 						{
+							std::cout << "Handshake Value Recieved: " << m_nHandshakeIn << std::endl;
 							if (m_nHandshakeIn == m_nHandshakeCheck)
 							{
 								//client has responded with correct solution so allow it to connect.
-								std::cout << "Client Validated" << std::endl;
+								std::cout << "Handshake Accepted, Validating Connection" << std::endl;
 								server->OnClientValidated(this->shared_from_this());
 
 								//Sit waiting to recieve data now. 
@@ -276,9 +283,9 @@ namespace netcommon
 						{
 							//connection is a client so solve puzzle;
 							m_nHandshakeOut = Scramble(m_nHandshakeIn);
-
 							//Write back the result;
 							WriteValidation();
+
 						}
 					}
 					else
@@ -311,9 +318,6 @@ namespace netcommon
 		uint64_t m_nHandshakeOut = 0;
 		uint64_t m_nHandshakeIn = 0;
 		uint64_t m_nHandshakeCheck = 0;
-
-		//return information
-		
 
 
 	};

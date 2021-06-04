@@ -36,5 +36,8 @@
     <ClInclude Include="NetConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BarebonesWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BarebonesWindows.h" />
     <ClInclude Include="NetClient.h" />
     <ClInclude Include="NetCommon.h" />
     <ClInclude Include="NetCommonInclude.h" />
@@ -81,19 +82,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include</IncludePath>
+    <IncludePath>C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;$(IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include</IncludePath>
+    <IncludePath>C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;$(IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include</IncludePath>
+    <IncludePath>C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;$(IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include</IncludePath>
+    <IncludePath>C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\NetCommon;$(IncludePath);C:\Users\Sam Campbell\source\repos\SamCamAsioNetworking\asio-1.18.0\asio-1.18.0\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

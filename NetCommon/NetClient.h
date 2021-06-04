@@ -14,9 +14,8 @@ namespace netcommon
 		ClientInterface()
 			:
 			m_socket(m_context)
-		{
+		{}
 
-		}
 		virtual ~ClientInterface()
 		{
 			Disconnect();
@@ -41,6 +40,8 @@ namespace netcommon
 
 				//Sart context thread
 				thrContxt = std::thread([this]() {m_context.run(); });
+
+			
 				
 			}
 			catch (std::exception& e)
@@ -61,6 +62,10 @@ namespace netcommon
 			//stop thread
 			if (thrContxt.joinable())
 				thrContxt.join();
+
+			//close up scokets.
+			m_socket.close();
+			m_socket.release();
 
 			//release unique pointer
 			m_connection.release();
